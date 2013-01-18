@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<meta http-equiv="Content-Language" content="en-us" />
+<meta http-equiv="imagetoolbar" content="false" />
+<meta name="MSSmartTagsPreventParsing" content="true" />
+<meta name="author" content="Po Shan Cheah" />
+
+<title>Sudoku Solver</title>
+
+<style type="text/css">
+body {
+    background: #fff none;
+    color: #000;
+    font: normal 14px Tahoma, Verdana, Arial, Helvetica, sans-serif;
+}
+
+.error {
+    color: red;
+}
+
+#output {
+    white-space: pre;
+    font: normal 14px monospace;
+}
+</style>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+	$("form#puzform").submit(function(e){
+	    e.preventDefault();
+	    e.stopPropagation();
+	    $("#output").html("Working...");
+	    $.ajax({
+		type: 'POST',
+		url: '/ajax',
+		data: { input: $('#input').val() },
+		timeout: 3000,
+		success: function(out) {
+		    $("#output").html(out);
+		},
+		error: function(xhr, status) {
+		    $("#output").html('<span class="error">'+
+			xhr.statusText+'</span>');
+		}
+	    });
+	});
+    }); 
+</script>
+</head>
+
+<body>
+    <h1>Sudoku Solver</h1>
+
+    <form id="puzform" action="/" method="post">
+	Enter the puzzle below:<br />
+	<textarea name="input" id="input" rows="12" cols="30">{{ puz }}</textarea><br />
+	<input type="submit" value="Solve it!" />
+    </form>
+    <hr />
+    <div id="output">{{ output|safe }}</div>
+</body>
+</html>
+<!-- vim:set tw=0: -->
