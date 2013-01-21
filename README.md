@@ -8,7 +8,7 @@ This is a simple example web app that has been updated for HRD and Python 2.7. I
 
 If Javascript is enabled in the browser, it uses AJAX to call the solver and retrieve the solution.
 
-If Javascript is not enabled, it regenerates the page using a Django template with the solution added inline.
+If Javascript is not enabled, it regenerates the page using a Jinja2 template with the solution added inline.
 
 ## Installation
 

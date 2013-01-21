@@ -9,9 +9,6 @@ handlers:
   script: sudoku.app
 
 libraries:
-- name: django
-  version: "1.2"
-
-env_variables:
-  DJANGO_SETTINGS_MODULE: 'settings'
+- name: jinja2
+  version: latest
 

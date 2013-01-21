@@ -6,7 +6,12 @@ import cgi
 import re
 import time
 from google.appengine.ext import webapp
-from django.template import loader, Context
+import os
+import jinja2
+
+jinja_environment = jinja2.Environment(
+    loader = jinja2.FileSystemLoader(os.path.dirname(__file__)))
+
 
 # Replace newlines with <br> tags. Consecutive <br> tags need to be
 # separated by non-breaking spaces so that the browser won't collapse the
@@ -40,8 +45,8 @@ xx9 2xx xxx
 	self.output += '<strong>%s</strong>\n' % msg
 
     def render_template(self, puz, output):
-	t = loader.get_template('sudtempl.htm')
-	html = t.render(Context({ 'puz' : puz, 'output' : output }))
+	t = jinja_environment.get_template('sudtempl.htm')
+	html = t.render({ 'puz' : puz, 'output' : output })
 	self.response.out.write(html)
 
     # This is the initial page. Just display the form and put a default
@@ -209,10 +214,5 @@ class AjaxPage(MainPage):
 app = webapp.WSGIApplication([ 
     ('/', MainPage), 
     ('/ajax', AjaxPage) ], debug=True)
-
-#     util.run_wsgi_app(application)
-
-# if __name__ == "__main__":
-#     main()
 
 # vim:set tw=0:

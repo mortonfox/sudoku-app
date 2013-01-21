@@ -58,11 +58,11 @@ body {
 
     <form id="puzform" action="/" method="post">
 	Enter the puzzle below:<br />
-	<textarea name="input" id="input" rows="12" cols="30">{{ puz }}</textarea><br />
+	<textarea name="input" id="input" rows="12" cols="30">{{ puz|escape }}</textarea><br />
 	<input type="submit" value="Solve it!" />
     </form>
     <hr />
-    <div id="output">{{ output|safe }}</div>
+    <div id="output">{{ output }}</div>
 </body>
 </html>
 <!-- vim:set tw=0: -->
